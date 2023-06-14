@@ -5,6 +5,7 @@ from game.components.spaceship import Spaceship
 from game.components.enemies.enemy_manager import EnemyManager
 class Game:
     def __init__(self):
+        LEVEL = 2
         pygame.init()
         pygame.display.set_caption(TITLE)
         pygame.display.set_icon(ICON)
@@ -17,7 +18,7 @@ class Game:
         self.x_pos_bg = 0
         self.y_pos_bg = 0
         self.player = Spaceship()
-        self.enemy_manager = EnemyManager()
+        self.enemy_manager = EnemyManager(LEVEL)
 
     def run(self):
         self.playing = True
@@ -45,7 +46,7 @@ class Game:
         
         self.draw_background()
         self.player.draw(self.screen)
-        self.enemy_manager.draw(self.screen)
+        self.enemy_manager.draw(self.screen) 
 
         pygame.display.update()
         pygame.display.flip()
