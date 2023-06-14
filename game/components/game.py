@@ -5,7 +5,7 @@ from game.components.spaceship import Spaceship
 from game.components.enemies.enemy_manager import EnemyManager
 class Game:
     def __init__(self):
-        LEVEL = 2
+        LEVEL = 8
         pygame.init()
         pygame.display.set_caption(TITLE)
         pygame.display.set_icon(ICON)
