@@ -25,14 +25,18 @@ SPACESHIP_SHIELD = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship_
 BULLET = pygame.image.load(os.path.join(IMG_DIR, "Bullet/bullet_1.png"))
 
 BULLET_ENEMY = pygame.image.load(os.path.join(IMG_DIR, "Bullet/bullet_2.png"))
-ENEMYS = {
-    0: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_1.png")),
-    1: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_2.png")),
-    2: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_3.png")),
-    3: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_4.png")),
-    4: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_5.png")),
-    5: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_6.png")),
-    6: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_7.png")),
-    7: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_8.png")),
-}
+# ENEMYS = {
+#     0: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_1.png")),
+#     1: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_2.png")),
+#     2: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_3.png")),
+#     3: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_4.png")),
+#     4: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_5.png")),
+#     5: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_6.png")),
+#     6: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_7.png")),
+#     7: pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_8.png")),
+# }
+ENEMY1 = pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_1.png"))
+ENEMY2 = pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_2.png"))
+                          
+
 FONT_STYLE = 'freesansbold.ttf'
