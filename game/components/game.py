@@ -28,15 +28,21 @@ class Game:
         self.score = 0
         self.death_count = 0
         self.menu = Menu("Press any key to start...", self.screen)
+        self.hight_score = 0
+        self.dead = 0
 
     def execute(self):
         self.running = True
         while self.running:
             if not self.playing:
                 self.show_menu()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                    self.playing = False
         pygame.display.quit()
         pygame.quit()
-
+    
     def run(self):
         self.enemy_manager.resset()
         self.score = 0
@@ -44,9 +50,10 @@ class Game:
         self.playing = True
         while self.playing:
             self.events()
-            self.update()
-            self.draw()
-
+            if self.playing:
+                self.update()
+                self.draw()
+        
     def events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -70,7 +77,6 @@ class Game:
         self.bullet_manager.draw(self.screen) 
         self.draw_score()
 
-
         pygame.display.update()
         pygame.display.flip()
 
@@ -92,9 +98,12 @@ class Game:
         half_screen_width = SCREEN_WIDTH // 2
 
         if self.death_count == 0:
-            self.menu.draw(self.score)
+            self.menu.draw(self.screen)
         else:
-            self.menu.update_message('New Message')
+            self.menu.update_message('Game Over Press any Key To restart')
+            self.draw_scores("HIGHT SCORE",self.hight_score,550,350)
+            self.draw_scores("YOUR SCORE",self.score,550,400)
+            # self.draw_scores("TOTAL DEATHS",self.dead,550,450)
             self.menu.draw(self.screen)
         
         icon =pygame.transform.scale(ICON, (80,120))
@@ -103,12 +112,21 @@ class Game:
 
     def update_score(self):
         self.score +=1
+        if self.score > self.hight_score:
+            self.hight_score = self.score
 
     def draw_score(self):
         font = pygame.font.Font(FONT_STYLE,30)
         text =font.render(f'Score: {self.score}',True,(255,255,255))
         text_rect = text.get_rect()
         text_rect.center = (100,50)
+        self.screen.blit(text,text_rect)
+
+    def draw_scores(self,message,score,x,y):
+        font = pygame.font.Font(FONT_STYLE,30)
+        text =font.render(f'{message} :{score}',True,(0,0,0))
+        text_rect = text.get_rect()
+        text_rect.center = (x,y)
         self.screen.blit(text,text_rect)
 
         
