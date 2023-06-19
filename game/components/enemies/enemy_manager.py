@@ -34,5 +34,5 @@ class EnemyManager:
         for enemy in  self.enemies:
             enemy.draw(screen)
 
-    def resset(self):
+    def reset(self):
         self.enemies = []

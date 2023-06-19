@@ -1,6 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
-from game.utils.constants import SPACESHIP, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.utils.constants import SPACESHIP, SCREEN_HEIGHT, SCREEN_WIDTH, DEFAULT_TYPE, SHIELD_TYPE, FIRE_TYPE, SPEED_TYPE
 from game.components.bullets.bullet import Bullet
 
 class Spaceship(Sprite):
@@ -14,47 +14,32 @@ class Spaceship(Sprite):
         self.rect.x = self.x_POS
         self.rect.y = self.y_POS
         self.type = 'player'
+        self.has_power_up = False
+        self.power_time_up = 0
+        self.power_up_type = DEFAULT_TYPE
+        self.speed = 10
+
 
     def move_left(self):
         if self.rect.left > 0:
-            self.rect.x = self.rect.x - 10
+            self.rect.x = self.rect.x - self.speed
         else :
             self.rect.x = SCREEN_WIDTH
 
     def move_right(self):
         if self.rect.right < SCREEN_WIDTH:
-            self.rect.x =self.rect.x + 10
+            self.rect.x =self.rect.x + self.speed
         else:
             self.rect.x = 0
 
     def move_up(self):
         if self.rect.y > SCREEN_HEIGHT // 2:
-            self.rect.y = self.rect.y - 10
+            self.rect.y = self.rect.y - self.speed
 
     def move_down(self):
         if self.rect.y < SCREEN_HEIGHT - 70:
-            self.rect.y = self.rect.y + 10
-
-    def move_up_left(self):
-        if self.rect.left > 0 and self.rect.y > SCREEN_HEIGHT // 2:
-            self.rect.x -= 10
-            self.rect.y -= 10
-
-    def move_up_right(self):
-        if self.rect.right < SCREEN_WIDTH and self.rect.y > SCREEN_HEIGHT // 2:
-            self.rect.x += 10
-            self.rect.y -= 10
-
-    def move_down_left(self):
-        if self.rect.left > 0 and self.rect.y < SCREEN_HEIGHT - 70:
-            self.rect.x -= 10
-            self.rect.y += 10
-
-    def move_down_right(self):
-        if self.rect.right < SCREEN_WIDTH and self.rect.y < SCREEN_HEIGHT - 70:
-            self.rect.x += 10
-            self.rect.y += 10
-    
+            self.rect.y = self.rect.y + self.speed
+ 
     def shoot(self, bullet_manager):
         bullet = Bullet(self)
         bullet_manager.add_bullet(bullet)
@@ -62,27 +47,40 @@ class Spaceship(Sprite):
     def update(self, user_input, game):
         
         if user_input[pygame.K_LEFT]:
-            if user_input[pygame.K_UP]:
-                self.move_up_left()
-            elif user_input[pygame.K_DOWN]:
-                self.move_down_left()
-            else:
-                self.move_left()
-        elif user_input[pygame.K_RIGHT]:
-            if user_input[pygame.K_UP]:
-                self.move_up_right()
-            elif user_input[pygame.K_DOWN]:
-                self.move_down_right()
-            else:
-                self.move_right()
-        elif user_input[pygame.K_UP]:
+            self.move_left()
+        if user_input[pygame.K_RIGHT]:
+            self.move_right()
+        if user_input[pygame.K_UP]:
             self.move_up()
-        elif user_input[pygame.K_DOWN]:
+        if user_input[pygame.K_DOWN]:
             self.move_down()     
-        elif user_input[pygame.K_SPACE]:
-            self.shoot(game.bullet_manager)            
+        if user_input[pygame.K_SPACE]:
+            self.shoot(game.bullet_manager)     
 
+        if self.power_up_type == SPEED_TYPE:
+            self.speed = 20
+        elif self.power_up_type == FIRE_TYPE:
+            game.bullet_manager.activate_fire_powerup(20)
+
+        if self.has_power_up and pygame.time.get_ticks() >= self.power_time_up:
+            self.has_power_up = False
+            self.power_time_up = 0
+            self.set_image()  
+            self.speed = 10
+            game.bullet_manager.activate_fire_powerup(3)
+            self.power_up_type = DEFAULT_TYPE
+            
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
 
+    def set_image(self, size = (40,60), image = SPACESHIP):
+        self.image = image
+        self.image = pygame.transform.scale(self.image, size)
 
+    def reset(self):
+        self.rect.x = self.x_POS
+        self.rect.y = self.y_POS
+        self.has_power_up = False
+        self.power_time_up = 0
+        self.power_up_type = DEFAULT_TYPE
+        self.speed = 10

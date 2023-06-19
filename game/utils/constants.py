@@ -12,6 +12,8 @@ IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets")
 ICON = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship.png"))
 
 SHIELD = pygame.image.load(os.path.join(IMG_DIR, 'Other/shield.png'))
+SPEED = pygame.image.load(os.path.join(IMG_DIR, 'Other/speed.webp'))
+FIRE = pygame.image.load(os.path.join(IMG_DIR, 'Other/fire.png'))
 
 BG = pygame.image.load(os.path.join(IMG_DIR, 'Other/Track.png'))
 
@@ -19,9 +21,16 @@ HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = 'shield'
+SPEED_TYPE = 'fire'
+FIRE_TYPE = 'speed'
+
+
 
 SPACESHIP = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship.png"))
 SPACESHIP_SHIELD = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship_shield.png"))
+SPACESHIP_FIRE = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship_fire.png"))
+SPACESHIP_SPEED = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship_speed.png"))
+
 BULLET = pygame.image.load(os.path.join(IMG_DIR, "Bullet/bullet_1.png"))
 
 BULLET_ENEMY = pygame.image.load(os.path.join(IMG_DIR, "Bullet/bullet_2.png"))
